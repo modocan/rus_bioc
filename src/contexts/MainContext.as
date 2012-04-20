@@ -7,10 +7,14 @@
  */
 package contexts {
 import commands.CreacionCommand;
+import commands.PideMenuCommand;
+
+import events.MenuEvent;
 
 import flash.display.DisplayObjectContainer;
 
 import mediators.MainMediator;
+import mediators.MenuMediator;
 
 import models.IMainModel;
 import models.MainModel;
@@ -20,6 +24,7 @@ import org.robotlegs.base.ContextEvent;
 import org.robotlegs.mvcs.Context;
 
 import views.MainView;
+import views.MenuView;
 
 public class MainContext extends Context {
 
@@ -40,6 +45,7 @@ public class MainContext extends Context {
     private function mapCommands():void
     {
         commandMap.mapEvent(ContextEvent.STARTUP_COMPLETE, CreacionCommand, ContextEvent);
+        commandMap.mapEvent(MenuEvent.PIDE_MENU, PideMenuCommand, MenuEvent);
     }
 
 
@@ -52,6 +58,7 @@ public class MainContext extends Context {
     private function mapViews():void
     {
         mediatorMap.mapView(MainView, MainMediator);
+        mediatorMap.mapView(MenuView, MenuMediator);
     }
 
 

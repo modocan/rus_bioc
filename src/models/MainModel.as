@@ -11,7 +11,7 @@ import org.robotlegs.mvcs.Actor;
 
 public class MainModel extends Actor implements IMainModel {
 
-    private var seccionesFase1:Array = ['INICIO', 'TOUR FLEX', 'PREGUNTA A CONTADOR'];
+    private var seccionesFase1:Array = ['INICIO', 'TOUR FLEX', 'PREGUNTA A CONTADOR', 'PRODUCTO'];
 
     public function MainModel() {
         super();
