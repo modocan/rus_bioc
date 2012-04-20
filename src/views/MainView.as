@@ -35,7 +35,7 @@ public class MainView extends Sprite {
         bisel.name = 'bisel';
         bisel.x = marco.x - 5;
         bisel.y = marco.y - (bisel.height/2);
-        bisel.width = marco.width + 20;
+        bisel.width = marco.width + 10;
         addChild(bisel);
     }
 
