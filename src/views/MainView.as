@@ -6,8 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 package views {
-import events.MenuEvent;
-
 import flash.display.Sprite;
 import flash.events.Event;
 

@@ -8,7 +8,6 @@
 package mediators {
 import events.MenuEvent;
 
-import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
 

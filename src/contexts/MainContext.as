@@ -21,7 +21,6 @@ import models.IMainModel;
 import models.MainModel;
 
 import org.robotlegs.base.ContextEvent;
-
 import org.robotlegs.mvcs.Context;
 
 import views.MainView;

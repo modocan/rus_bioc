@@ -6,7 +6,6 @@ import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 
 import org.robotlegs.core.IContext;
-import org.robotlegs.mvcs.Context;
 
 [SWF(frameRate="24", height="600", width="1000", backgroundColor="#333333")]
 

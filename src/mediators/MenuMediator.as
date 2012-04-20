@@ -8,8 +8,6 @@
 package mediators {
 import events.MenuEvent;
 
-import flash.events.Event;
-
 import org.robotlegs.mvcs.Mediator;
 
 import views.MenuView;

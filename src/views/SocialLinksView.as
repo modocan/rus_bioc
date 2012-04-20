@@ -13,8 +13,6 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 
-import mx.controls.Menu;
-
 public class SocialLinksView extends Sprite {
 
     private var clip:SocialLinks;
