@@ -12,6 +12,7 @@ import flash.text.TextFieldAutoSize;
 public class MenuView extends Sprite {
 
     private var item:BtnMenu;
+    private var bici:BiciMenu;
 
     public function MenuView() {
 
@@ -26,9 +27,19 @@ public class MenuView extends Sprite {
             item.mouseChildren = false;
             item.texto_txt.text = listado[i];
             item.texto_txt.autoSize = TextFieldAutoSize.CENTER;
-            item.x = (item.width + 30) * i;
+            item.texto_txt.x = -(item.texto_txt.width/2);
+            if(i > 0)
+            {
+                item.x = this.getChildAt(i-1).x + this.getChildAt(i-1).width + (item.width/2) + 20;
+            }
             addChild(item);
         }
+
+
+        bici = new BiciMenu();
+        bici.x = this.getChildByName('btn_0').x;
+        bici.y = -5;
+        addChild(bici);
     }
 
 

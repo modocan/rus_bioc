@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 package views {
+import events.MenuEvent;
+
 import flash.display.Sprite;
 import flash.events.Event;
 
@@ -15,6 +17,8 @@ public class MainView extends Sprite {
     private var bisel:BiselMenu;
     private var logo:Logo;
     private var logo_flex:LogoFlex;
+    private var menu:MenuView;
+    private var social:SocialLinksView;
 
     public function MainView() {
         this.addEventListener(Event.ADDED_TO_STAGE, init);
@@ -23,6 +27,7 @@ public class MainView extends Sprite {
 
     private function init(e:Event):void
     {
+        this.removeEventListener(Event.ADDED_TO_STAGE, init);
         this.stage.addEventListener(Event.RESIZE, ajusta);
 
         marco = new Marco();
@@ -42,8 +47,18 @@ public class MainView extends Sprite {
         logo_flex = new LogoFlex();
         logo_flex.name = 'logo_flex';
         logo_flex.x = logo.x + (logo_flex.width/2);
-        logo_flex.y = marco.y + marco.height;
+        logo_flex.y = marco.y + marco.height + 3;
         addChild(logo_flex);
+
+        menu = new MenuView();
+        menu.name = 'menu';
+        addChild(menu);
+
+        social = new SocialLinksView();
+        social.name = 'social';
+        social.x = marco.x - 8;
+        social.y = marco.y + marco.height + 6;
+        addChild(social);
 
         bisel = new BiselMenu();
         bisel.name = 'bisel';
@@ -53,6 +68,13 @@ public class MainView extends Sprite {
         addChild(bisel);
     }
 
+
+    public function pintaMenu():void
+    {
+        menu.x = marco.x + 50;
+        menu.y = marco.y - 15;
+
+    }
 
 
     private function ajusta(e:Event):void
@@ -80,7 +102,19 @@ public class MainView extends Sprite {
          if(this.getChildByName('logo_flex'))
          {
              logo_flex.x = logo.x + (logo_flex.width/2);
-             logo_flex.y = marco.y + marco.height;
+             logo_flex.y = marco.y + marco.height + 3;
+         }
+
+         if(this.getChildByName('menu'))
+         {
+             menu.x = marco.x + 50;
+             menu.y = marco.y - 15;
+         }
+
+         if(this.getChildByName('social'))
+         {
+             social.x = marco.x - 8;
+             social.y = marco.y + marco.height + 4;
          }
     }
 

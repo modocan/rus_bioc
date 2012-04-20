@@ -15,6 +15,7 @@ import flash.display.DisplayObjectContainer;
 
 import mediators.MainMediator;
 import mediators.MenuMediator;
+import mediators.SocialLinksMediator;
 
 import models.IMainModel;
 import models.MainModel;
@@ -25,6 +26,7 @@ import org.robotlegs.mvcs.Context;
 
 import views.MainView;
 import views.MenuView;
+import views.SocialLinksView;
 
 public class MainContext extends Context {
 
@@ -57,8 +59,9 @@ public class MainContext extends Context {
 
     private function mapViews():void
     {
-        mediatorMap.mapView(MainView, MainMediator);
         mediatorMap.mapView(MenuView, MenuMediator);
+        mediatorMap.mapView(MainView, MainMediator);
+        mediatorMap.mapView(SocialLinksView, SocialLinksMediator);
     }
 
 

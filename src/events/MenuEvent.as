@@ -13,8 +13,10 @@ public class MenuEvent extends Event {
     public static const PIDE_MENU:String = 'MenuEvent.PIDE_MENU';
     public static const LISTADO_MENU:String = 'MenuEvent.LISTADO_MENU';
     public static const PINTA_MENU:String = 'MenuEvent.PINTA_MENU';
+    public static const CLICK_SOCIAL:String = 'MenuEvent.CLICK_SOCIAL';
 
     private var _secciones:Array = new Array();
+    private var _quien:String;
 
 
     public function MenuEvent(tipo:String) {
@@ -27,6 +29,14 @@ public class MenuEvent extends Event {
 
     public function set secciones(value:Array):void {
         _secciones = value;
+    }
+
+    public function get quien():String {
+        return _quien;
+    }
+
+    public function set quien(value:String):void {
+        _quien = value;
     }
 }
 }

@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 package mediators {
+import events.MenuEvent;
+
 import org.robotlegs.mvcs.Mediator;
 
 import views.MainView;
@@ -21,7 +23,13 @@ public class MainMediator extends Mediator {
 
     override public function onRegister():void
     {
+        eventMap.mapListener(eventDispatcher, MenuEvent.PINTA_MENU, pintaMenu);
+    }
 
+
+    private function pintaMenu(e:MenuEvent):void
+    {
+         vista.pintaMenu();
     }
 
 
