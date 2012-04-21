@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 package mediators {
+import com.hexagonstar.util.debug.Debug;
+
 import events.MenuEvent;
 
 import org.robotlegs.mvcs.Mediator;
@@ -24,6 +26,7 @@ public class MenuMediator extends Mediator {
     override public function onRegister():void
     {
         eventMap.mapListener(eventDispatcher, MenuEvent.LISTADO_MENU, pintaMenu);
+        eventMap.mapListener(vista, MenuEvent.CLICK_MENU, clicMenu);
 
         pideListado();
     }
@@ -39,6 +42,16 @@ public class MenuMediator extends Mediator {
     {
         vista.creaItems(e.secciones);
         eventDispatcher.dispatchEvent(new MenuEvent(MenuEvent.PINTA_MENU));
+    }
+
+
+    private function clicMenu(e:MenuEvent):void
+    {
+        Debug.trace('mediator');
+
+        var evento:MenuEvent = new MenuEvent(MenuEvent.CLICK_MENU);
+        evento.quien = e.quien;
+        eventDispatcher.dispatchEvent(evento);
     }
 
 }

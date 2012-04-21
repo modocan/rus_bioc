@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 package views {
+import com.greensock.TweenLite;
+
 import flash.display.Sprite;
 import flash.events.Event;
 
@@ -17,8 +19,10 @@ public class MainView extends Sprite {
     private var logo_flex:LogoFlex;
     private var menu:MenuView;
     private var social:SocialLinksView;
+    private var login_loader:CargandoLogin;
 
     public function MainView() {
+        this.name = 'marco';
         this.addEventListener(Event.ADDED_TO_STAGE, init);
     }
 
@@ -75,6 +79,33 @@ public class MainView extends Sprite {
     }
 
 
+    public function creaCargandoLogin():void
+    {
+        login_loader = new CargandoLogin();
+        login_loader.name = 'login_loader';
+        login_loader.alpha = 0;
+        login_loader.fondo.width = marco.width;
+        login_loader.fondo.height = marco.height;
+        login_loader.texto.x =  (login_loader.fondo.width/2) - (login_loader.texto.width/2);
+        login_loader.texto.y =  (login_loader.fondo.height/2) - (login_loader.texto.height/2);
+        login_loader.x = marco.x;
+        login_loader.y = marco.y;
+        login_loader.addEventListener(Event.ADDED_TO_STAGE, function(e:Event){
+            TweenLite.to(login_loader, 0.4, {alpha: 1});
+        }) ;
+        addChild(login_loader);
+    }
+
+
+    public function borrarCargandoLogin():void
+    {
+        TweenLite.to(login_loader, 0.4, {alpha: 0, onComplete:function(){
+            removeChild(login_loader);
+        }});
+    }
+
+
+
     private function ajusta(e:Event):void
     {
          if(this.getChildByName('marco')){
@@ -113,6 +144,16 @@ public class MainView extends Sprite {
          {
              social.x = marco.x - 8;
              social.y = marco.y + marco.height + 4;
+         }
+
+         if(this.getChildByName('login_loader'))
+         {
+             login_loader.fondo.width = marco.width;
+             login_loader.fondo.height = marco.height;
+             login_loader.texto.x =  (login_loader.fondo.width/2) - (login_loader.texto.width/2);
+             login_loader.texto.y =  (login_loader.fondo.height/2) - (login_loader.texto.height/2);
+             login_loader.x = marco.x;
+             login_loader.y = marco.y;
          }
     }
 
