@@ -20,6 +20,7 @@ public class CajaLoginView extends Sprite {
     private var titulo:TituloSeccionPreguntas;
     public var login:CajaLogin;
     private var _this:CajaLoginView;
+    private var caja_texto:CajaTextoView;
 
     public function CajaLoginView() {
         _this = this;
@@ -67,6 +68,17 @@ public class CajaLoginView extends Sprite {
             login.visible = false;
 
         }});
+    }
+
+
+    public function pintaCaja(datos:Object):void
+    {
+        caja_texto = new CajaTextoView(datos);
+        caja_texto.y = titulo.y + titulo.height + 15;
+        caja_texto.addEventListener(Event.ADDED_TO_STAGE, function(e:Event){
+            caja_texto.x = (titulo.x + (titulo.width/2)) - (caja_texto.width/2);
+        })  ;
+        addChild(caja_texto);
     }
 
 

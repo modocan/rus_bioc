@@ -15,6 +15,7 @@ public class ControlEvent extends Event {
     public static const APAGAR:String = 'ControlEvent.APAGAR';
     public static const LOADER_LOGIN:String = 'ControlEvent.LOADER_LOGIN';
     public static const FIN_LOADER_LOGIN:String = 'ControlEvent.FIN_LOADER_LOGIN';
+    public static const ACTUALIZA_USUARIO:String = 'ControlEvent.ACTUALIZA_USUARIO';
 
     private var _quien:String;
     private var _datos:Object = new Object();

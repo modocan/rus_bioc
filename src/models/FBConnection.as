@@ -61,8 +61,9 @@ public class FBConnection extends Actor implements IFBConnection {
                 if(success){
                    usuario = new Object();
                    usuario = success;
-                   var evento:ControlEvent = new ControlEvent(ControlEvent.FIN_LOADER_LOGIN);
-                   evento.datos = usuario;
+                   var evento:ControlEvent = new ControlEvent(ControlEvent.ACTUALIZA_USUARIO);
+                   evento.datos.usuario = usuario;
+                   evento.datos.tipo = 'fb';
                    eventDispatcher.dispatchEvent(evento);
                 }
             });

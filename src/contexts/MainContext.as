@@ -6,8 +6,10 @@
  * To change this template use File | Settings | File Templates.
  */
 package contexts {
+import commands.ActualizaUsuarioCommand;
 import commands.CambiaSeccionCommand;
 import commands.CreacionCommand;
+import commands.EnviarPreguntaCommand;
 import commands.LoginCommand;
 import commands.PideMenuCommand;
 import commands.SubeMarcoCommand;
@@ -20,6 +22,7 @@ import events.PreguntasEvent;
 import flash.display.DisplayObjectContainer;
 
 import mediators.CajaLoginMediator;
+import mediators.CajaTextoMediator;
 
 import mediators.MainMediator;
 import mediators.MenuMediator;
@@ -29,7 +32,9 @@ import mediators.SocialLinksMediator;
 
 
 import models.IMainModel;
+import models.IPreguntasModel;
 import models.MainModel;
+import models.PreguntasModel;
 
 import org.robotlegs.base.ContextEvent;
 import org.robotlegs.mvcs.Context;
@@ -39,6 +44,7 @@ import models.FBConnection;
 import models.IFBConnection;
 
 import views.CajaLoginView;
+import views.CajaTextoView;
 
 import views.MainView;
 import views.MenuView;
@@ -69,6 +75,8 @@ public class MainContext extends Context {
         commandMap.mapEvent(MenuEvent.CLICK_MENU, CambiaSeccionCommand, MenuEvent);
         commandMap.mapEvent(ControlEvent.SECCION, SubeMarcoCommand, ControlEvent);
         commandMap.mapEvent(PreguntasEvent.LOGIN, LoginCommand, PreguntasEvent);
+        commandMap.mapEvent(PreguntasEvent.ENVIA_PREGUNTA, EnviarPreguntaCommand, PreguntasEvent);
+        commandMap.mapEvent(ControlEvent.ACTUALIZA_USUARIO, ActualizaUsuarioCommand, ControlEvent);
     }
 
 
@@ -76,6 +84,7 @@ public class MainContext extends Context {
     {
         injector.mapSingletonOf(IMainModel, MainModel);
         injector.mapSingletonOf(IFBConnection, FBConnection);
+        injector.mapSingletonOf(IPreguntasModel, PreguntasModel);
     }
 
 
@@ -87,6 +96,7 @@ public class MainContext extends Context {
         mediatorMap.mapView(SeccionPreguntaView, SeccionPreguntasMediator);
         mediatorMap.mapView(SeccionProductoView, SeccionProductoMediator);
         mediatorMap.mapView(CajaLoginView, CajaLoginMediator);
+        mediatorMap.mapView(CajaTextoView, CajaTextoMediator);
     }
 
 

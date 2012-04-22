@@ -10,5 +10,9 @@ public interface IMainModel {
 
     function dameSecciones():Array
 
+    function usuarioLogin(valor:Object):void
+
+    function dameUsuarioLogin():Object
+
 }
 }

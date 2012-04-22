@@ -11,6 +11,7 @@ import flash.events.Event;
 public class PreguntasEvent extends Event {
 
     public static const LOGIN:String = 'PreguntasEvent.LOGIN';
+    public static const ENVIA_PREGUNTA:String = 'PreguntasEvent.ENVIA_PREGUNTA';
 
     private var _datos:Object = new Object();
 

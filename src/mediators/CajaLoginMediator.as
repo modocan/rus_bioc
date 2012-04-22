@@ -31,6 +31,7 @@ public class CajaLoginMediator extends Mediator {
     {
         eventMap.mapListener(vista, PreguntasEvent.LOGIN, clicLogin);
         eventMap.mapListener(eventDispatcher, ControlEvent.LOADER_LOGIN, ocultaLogin);
+        eventMap.mapListener(eventDispatcher, ControlEvent.FIN_LOADER_LOGIN, muestraCaja);
     }
 
 
@@ -51,6 +52,12 @@ public class CajaLoginMediator extends Mediator {
     private function ocultaLogin(e:ControlEvent):void
     {
         vista.ocultaLogin(e.datos);
+    }
+
+
+    private function muestraCaja(e:ControlEvent):void
+    {
+        vista.pintaCaja(e.datos);
     }
 
 }
