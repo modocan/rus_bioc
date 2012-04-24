@@ -8,6 +8,8 @@
 package models {
 import com.hexagonstar.util.debug.Debug;
 
+import events.PreguntasEvent;
+
 import flash.net.NetConnection;
 import flash.net.Responder;
 
@@ -18,6 +20,8 @@ public class PreguntasModel extends Actor implements IPreguntasModel {
     private const GATEWAY:String = 'http://www.tourflex.es/amfphp/gateway.php';
     private var cn:NetConnection;
 
+    private var preguntas:Object = new Object();
+
     public function PreguntasModel() {
         super();
     }
@@ -25,17 +29,21 @@ public class PreguntasModel extends Actor implements IPreguntasModel {
 
     public function enviaPregunta(usuario:Object, pregunta:String):void
     {
-        var envio:Object = new Object();
+        Debug.trace('[model]');
 
-        if(usuario.tipo == 'fb'){
-            envio.nombre = usuario.first_name;
-            envio.apellidos = usuario.last_name;
-            envio.pregunta = pregunta;
-            envio.id_social = usuario.id;
-            envio.red_social = 0;
-            envio.aprobado = 0;
-            envio.seleccionado = 0;
-        }
+        var envio:Object = new Object();
+        envio.nombre = usuario.nombre;
+        envio.apellidos = usuario.apellidos;
+        envio.pregunta = pregunta;
+        envio.id_social = usuario.id;
+        envio.foto = usuario.foto;
+        envio.red_social = usuario.red_social;
+        envio.aprobado = 0;
+        envio.seleccionado = 0;
+        envio.ciudad = usuario.ciudad;
+
+        Debug.traceObj(usuario);
+        Debug.inspect(envio);
 
         cn = new NetConnection();
         cn.connect(GATEWAY);
@@ -44,7 +52,31 @@ public class PreguntasModel extends Actor implements IPreguntasModel {
 
     private function respuestaPregunta(datos:Object):void
     {
-        Debug.trace(datos, Debug.LEVEL_ERROR);
+        if(datos == 'OK')
+        {
+            eventDispatcher.dispatchEvent(new PreguntasEvent(PreguntasEvent.PREGUNTA_REGISTRADA));
+            // TODO generar post en Facebook
+        }
+    }
+
+
+    public function damePreguntas():void
+    {
+        cn = new NetConnection();
+        cn.connect(GATEWAY);
+        cn.call('ContactService.damePreguntas', new Responder(respuesta));
+
+        function respuesta(datos:Object):void
+        {
+            if(datos != 'KO'){
+                preguntas = datos;
+
+                var evento:PreguntasEvent = new PreguntasEvent(PreguntasEvent.LUMINARIAS_RECIBIDAS);
+                evento.datos = preguntas;
+                eventDispatcher.dispatchEvent(evento);
+            }
+
+        }
     }
 
 

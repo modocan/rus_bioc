@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 package commands {
+import com.hexagonstar.util.debug.Debug;
+
 import events.PreguntasEvent;
 
 import models.IMainModel;
@@ -30,7 +32,7 @@ public class EnviarPreguntaCommand extends Command {
 
     override public function execute():void
     {
-        preguntas.enviaPregunta(Object(datosMain.dameUsuarioLogin()).usuario, String(ev.datos.pregunta));
+        preguntas.enviaPregunta(Object(datosMain.dameUsuarioLogin()), String(ev.datos.pregunta));
     }
 
 }

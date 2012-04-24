@@ -10,5 +10,7 @@ public interface IPreguntasModel {
 
     function enviaPregunta(usuario:Object, pregunta:String):void
 
+    function damePreguntas():void
+
 }
 }

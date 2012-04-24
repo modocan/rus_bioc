@@ -8,12 +8,15 @@
 package views {
 import com.greensock.TweenLite;
 import com.hexagonstar.util.debug.Debug;
+import com.hexagonstar.util.debug.Debug;
 
 import events.PreguntasEvent;
 
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
 
 public class CajaLoginView extends Sprite {
 
@@ -21,6 +24,7 @@ public class CajaLoginView extends Sprite {
     public var login:CajaLogin;
     private var _this:CajaLoginView;
     private var caja_texto:CajaTextoView;
+    private var caja_respuesta:RespuestaView;
 
     public function CajaLoginView() {
         _this = this;
@@ -59,26 +63,86 @@ public class CajaLoginView extends Sprite {
             _this.dispatchEvent(evento);
         });
         addChild(login);
+
+        caja_texto = new CajaTextoView();
+        caja_texto.visible = false;
+        caja_texto.alpha = 0;
+        caja_texto.y = titulo.y + titulo.height + 15;
+        caja_texto.addEventListener(Event.ADDED_TO_STAGE, function(e:Event){
+            caja_texto.x = (titulo.x + (titulo.width/2)) - (caja_texto.width/2);
+        });
+        addChild(caja_texto);
     }
 
 
-    public function ocultaLogin(datos:Object):void
+    public function ocultaLogin():void
     {
         TweenLite.to(login,  0.4, {alpha: 0, onComplete:function(){
             login.visible = false;
-
         }});
+    }
+
+
+    public function apareceLogin():void
+    {
+        login.visible = true;
+        TweenLite.to(login,  0.4, {alpha: 1});
     }
 
 
     public function pintaCaja(datos:Object):void
     {
-        caja_texto = new CajaTextoView(datos);
-        caja_texto.y = titulo.y + titulo.height + 15;
-        caja_texto.addEventListener(Event.ADDED_TO_STAGE, function(e:Event){
-            caja_texto.x = (titulo.x + (titulo.width/2)) - (caja_texto.width/2);
-        })  ;
-        addChild(caja_texto);
+        caja_texto.init(datos);
+        caja_texto.visible = true;
+        caja_texto.reinicia();
+        TweenLite.to(caja_texto, 0.5, {alpha: 1});
+    }
+
+
+    public function pintaRespuesta():void
+    {
+        var tiempo:Timer;
+
+        TweenLite.to(caja_texto, 0.6, {alpha: 0, onComplete:function(){
+
+            pinta();
+
+        }});
+
+        function pinta():void
+        {
+           // _this.removeChild(caja_texto);
+            caja_texto.visible = false;
+
+            caja_respuesta = new RespuestaView();
+            caja_respuesta.y =  titulo.y + titulo.height + 15;
+
+            caja_respuesta.addEventListener(Event.ADDED_TO_STAGE, controlaRespuesta);
+            _this.addChild(caja_respuesta);
+        }
+
+        function controlaRespuesta(e:Event):void
+        {
+            caja_respuesta.removeEventListener(Event.ADDED_TO_STAGE, controlaRespuesta);
+
+            caja_respuesta.x =  (titulo.x + (titulo.width/2)) - (caja_respuesta.width/2);
+
+            tiempo = new Timer(5000, 1);
+            tiempo.addEventListener(TimerEvent.TIMER_COMPLETE, borraRespuesta);
+            tiempo.start();
+        }
+
+        function borraRespuesta(e:TimerEvent):void
+        {
+            tiempo.removeEventListener(TimerEvent.TIMER_COMPLETE, borraRespuesta);
+
+            TweenLite.to(caja_respuesta, 0.5, {alpha: 0, onComplete:function(){
+                _this.removeChild(caja_respuesta);
+                apareceLogin();
+            }});
+        }
+
+
     }
 
 

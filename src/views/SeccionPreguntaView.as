@@ -22,6 +22,8 @@ public class SeccionPreguntaView extends Sprite {
     private var anchoActual:Number = 0;
     private var altoActual:Number = 0;
     private var login:CajaLoginView;
+    private var preguntas:LuminariasView;
+    private var slide:SlideView;
 
     public function SeccionPreguntaView(_quien:String) {
         this.name = _quien;
@@ -57,7 +59,42 @@ public class SeccionPreguntaView extends Sprite {
         login.name = 'login';
         login.x = 50;
         login.y = 110;
+        login.addEventListener(Event.ADDED_TO_STAGE, aded);
         addChild(login);
+
+        slide = new SlideView();
+        slide.name = 'slide';
+        slide.x = (_this.stage.stageWidth/2) - (slide.width/2);
+        slide.y = _this.stage.stageHeight - 60;
+        addChild(slide);
+
+        function aded(e:Event):void
+        {
+            login.removeEventListener(Event.ADDED_TO_STAGE, aded);
+
+            preguntas = new LuminariasView();
+            preguntas.x = login.x + login.width + 50;
+            preguntas.y = login.y + 10;
+            _this.addChild(preguntas);
+        }
+    }
+    
+    
+    public function gestionaSlider(accion:Boolean=false):void
+    {
+        if(_this.getChildByName('slide'))
+        {
+            if(accion)
+            {
+                slide.visible = true;
+                TweenLite.to(slide,  0.3, {alpha: 1});
+            } else {
+                
+                TweenLite.to(slide,  0.3, {alpha: 0, onComplete:function(){
+                    slide.visible = false;
+                }});
+            }
+        }
     }
 
 
@@ -90,6 +127,12 @@ public class SeccionPreguntaView extends Sprite {
         {
             CajaLoginView(this.getChildByName('login')).x = 50;
             CajaLoginView(this.getChildByName('login')).y = 110;
+        }
+        
+        if(_this.getChildByName('slide'))
+        {
+            slide.x = (_this.stage.stageWidth/2) - (slide.width/2);
+            slide.y = _this.stage.stageHeight - 60;
         }
 
     }
