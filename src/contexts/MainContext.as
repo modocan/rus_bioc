@@ -32,8 +32,10 @@ import mediators.MenuMediator;
 import mediators.RespuestaMediator;
 import mediators.SeccionPreguntasMediator;
 import mediators.SeccionProductoMediator;
+import mediators.SeccionSpotMediator;
 import mediators.SlideMediator;
 import mediators.SocialLinksMediator;
+import mediators.VideoProductoMediator;
 
 
 import models.IMainModel;
@@ -59,8 +61,10 @@ import views.MenuView;
 import views.RespuestaView;
 import views.SeccionPreguntaView;
 import views.SeccionProductoView;
+import views.SeccionSpotView;
 import views.SlideView;
 import views.SocialLinksView;
+import views.VideoProductoView;
 
 public class MainContext extends Context {
 
@@ -114,6 +118,8 @@ public class MainContext extends Context {
         mediatorMap.mapView(RespuestaView, RespuestaMediator);
         mediatorMap.mapView(LuminariasView, LuminariasMediator);
         mediatorMap.mapView(SlideView, SlideMediator);
+        mediatorMap.mapView(SeccionSpotView, SeccionSpotMediator);
+        mediatorMap.mapView(VideoProductoView, VideoProductoMediator);
     }
 
 

@@ -7,6 +7,7 @@
  */
 package views {
 import com.greensock.TweenLite;
+import com.greensock.TweenLite;
 import com.greensock.easing.Circ;
 import com.hexagonstar.util.debug.Debug;
 
@@ -70,6 +71,9 @@ public class LuminariasView extends Sprite {
 
                 luminaria = new Luminaria();
                 luminaria.clip.init(lumis[i], ruta_lumi);
+                luminaria.clip.velo.visible = false;
+                luminaria.clip.velo.alpha = 0;
+                luminaria.buttonMode = true;
                 luminaria.name = String(i);
                 if(i > 0){
                    luminaria.x = (luminaria.width + luminaria.width/2) + (luminaria.width * i) + (Math.random() * 20);
@@ -95,19 +99,55 @@ public class LuminariasView extends Sprite {
             mascara.height = 300 + luminaria.height;
             mascara.addEventListener(Event.ADDED_TO_STAGE, function(e:Event){
                 contenedor.mask = mascara;
+                ajusta();
             });
             addChild(mascara);
+            
+            ajusta();
         }
 
     }
 
 
+    public function apagaLumis():void
+    {
+        var _clip:Luminaria;
+        for(var i:int = 0; i < contenedor.numChildren; i++)
+        {
+            if(contenedor.getChildAt(i) is Luminaria)
+            {
+                _clip = Luminaria(contenedor.getChildAt(i));
+                _clip.clip.velo.visible = false;
+                _clip.clip.velo.alpha = 0;
+                _clip.buttonMode = true;
+                _clip.addEventListener(MouseEvent.CLICK, clicLuminaria);
+            }
+        }
+    }
+
+
     private function clicLuminaria(e:MouseEvent):void
     {
-        lumi_seleccion = Luminaria(e.currentTarget);
-        //lumi_seleccion.stop();
-        lumi_seleccion.alpha = 0.2;
+        var _clip:Luminaria;        
+        for(var i:int = 0; i < contenedor.numChildren; i++)
+        {
+            if(contenedor.getChildAt(i) is Luminaria)
+            {
+                _clip = Luminaria(contenedor.getChildAt(i));
+                _clip.clip.velo.visible = false;
+                _clip.clip.velo.alpha = 0;
+                _clip.buttonMode = true;
+                _clip.addEventListener(MouseEvent.CLICK, clicLuminaria);                
+            }
+        }
+        
+        _clip = Luminaria(e.currentTarget);
+        _clip.removeEventListener(MouseEvent.CLICK, clicLuminaria);
+        _clip.buttonMode = false;
+        _clip.clip.velo.visible = true;
+        TweenLite.to(_clip.clip.velo, 0.3, {alpha: 1});
 
+        lumi_seleccion = _clip;
         _this.dispatchEvent(new PreguntasEvent(PreguntasEvent.PREGUNTA_ELEGIDA));
 
     }

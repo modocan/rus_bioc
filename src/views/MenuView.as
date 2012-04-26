@@ -42,6 +42,18 @@ public class MenuView extends Sprite {
             item.texto_txt.text = listado[i];
             item.texto_txt.autoSize = TextFieldAutoSize.CENTER;
             item.texto_txt.x = -(item.texto_txt.width/2);
+            item.fondo.visible = false;
+            item.reg.visible = false;
+            item.fondo.width = item.texto_txt.width + 25;
+            item.fondo.x = -(item.fondo.width/2);
+            
+            if(item.name.indexOf('®') != -1)
+            {
+                item.texto_txt.text = item.texto_txt.text.substr(0, item.texto_txt.text.length-1);
+                item.reg.x = item.texto_txt.x + item.texto_txt.width - 3;
+                item.reg.visible = true;
+            }
+            
             item.addEventListener(MouseEvent.CLICK, clicMenu);
             if(i > 0)
             {
@@ -62,6 +74,26 @@ public class MenuView extends Sprite {
         trace('click');
 
         Debug.trace('click');
+        
+        var _clip:BtnMenu;
+        for(var i:int = 0; i < _this.numChildren; i++)
+        {
+            if(_this.getChildAt(i) is BtnMenu)
+            {
+                _clip = BtnMenu(_this.getChildAt(i));
+                if(!_clip.hasEventListener(MouseEvent.CLICK)){
+                    _clip.addEventListener(MouseEvent.CLICK, clicMenu);
+                    _clip.buttonMode = true;
+                    _clip.fondo.visible = false;
+                }
+            }
+            
+        }
+
+        _clip = BtnMenu(e.currentTarget);
+        _clip.removeEventListener(MouseEvent.CLICK, clicMenu);
+        _clip.buttonMode = false;
+        _clip.fondo.visible = true;
 
         var evento:MenuEvent = new MenuEvent(MenuEvent.CLICK_MENU);
         evento.quien = e.currentTarget.name;

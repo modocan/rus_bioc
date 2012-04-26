@@ -8,11 +8,16 @@
 package commands
 {
 
+import models.IMainModel;
+
 import org.robotlegs.mvcs.Command;
 
 import views.MainView;
 
 public class CreacionCommand extends Command {
+    
+    [Inject]
+    public var modelo:IMainModel;
 
 
     public function CreacionCommand() {
@@ -21,7 +26,7 @@ public class CreacionCommand extends Command {
 
     override public function execute():void
     {
-        contextView.addChild(new MainView());
+        contextView.addChild(new MainView(modelo.dameEnlaceWeb(), modelo.dameEnlaceBioceramics()));
     }
 
 }
